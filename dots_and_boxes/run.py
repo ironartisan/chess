@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import sys
 
-from dots_and_boxs.main_window_controller import MainWindowController
+from dots_and_boxes.main_window_controller import MainWindowController
 from PyQt5.QtWidgets import QApplication
 
 

@@ -37,8 +37,8 @@ class RandomAI(AIPlayer):
 
     def move(self):
         # 通过访问属性获得当前局面
-        print(self._board)
-        print(self._last_piece)
+        # print(self._board)
+        # print(self._last_piece)
         # 在这实现你的落子算法
         while True:
             coordinate = (random.choice("abcdef"), random.choice("123456"), random.choice(["h", "v"]))
