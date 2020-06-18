@@ -2,9 +2,9 @@
 import threading, queue, socket, random, time, json
 
 
-from lib.core.player import AIPlayer
+from dots_and_boxs.core.player import AIPlayer
 
-from lib.core.model import *
+from dots_and_boxs.core.model import *
 
 
 class PLFAI(AIPlayer):
