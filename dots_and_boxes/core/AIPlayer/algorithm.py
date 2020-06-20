@@ -71,6 +71,7 @@ class MCTS(AIPlayer):
             for j in range(5):
                 if pieces[i*2+1][j*2+1] != 0:
                     c = (pieces[i*2+1][j*2+1])[0]
+
                     if c == Color.red:
                         R['box'] |= (1 << (i * 5 + j))
                     elif c == Color.blue:
@@ -114,46 +115,49 @@ class MCTS(AIPlayer):
         flag = 0
         lock.acquire()
         while True:
-
+            # flag用来标注上次动作是否构成封闭格子，0为未封闭，1为封闭
             if flag == 0:
                 i = 1
                 for m in moves:
-                    # 如果全部落子后没有封闭的格子，则退出循坏
+                    # i用来标注已经尝试过的落子数量，如果全部落子后没有封闭的格子，则退出循坏
                     if i == len(moves)-1:
                         break
                     p = Piece(self.color, m)
                     if self._board.get_repeat(p):
                         # 设置棋子
                         self._board.set_piece(p)
+                        # 转化成实际坐标
                         x, y = p.coordinate
                         # print((x,y))
                         # 判断周围是否存在封闭的格子
                         if (self._check_box((x-1, y)) or self._check_box((x+1, y)) or self._check_box((x, y-1)) or self._check_box((x, y+1))):
                             self.move_queue.queue.clear()
+                            # 将棋子位置放在落子队列中
                             self.move_queue.put((1,m))
+                            # 取消棋子设置，最后根据落子队列里的顺序进行设置
                             self._board.unset_piece(p)
-                            # print("aaaaa====", m)
-                            # moves.remove(m)
                             # 如果有符合条件的则调出循坏
                             flag = 1
 
                             break
                         else:
+                            # 取消棋子设置，最后根据落子队列里的顺序进行设置
                             self._board.unset_piece(p)
-                            flag = 0
                             i = i + 1
 
             # 没有可以成为封闭的格子
             for random_m in moves:
+                # 设置棋子
                 p = Piece(self.color, random_m)
                 if self._board.get_repeat(p):
-                    # 随机选择一个棋子
+                    # 随机选择一个棋子，随机设置的棋子优先级为2，低于能封闭格子的棋子序列
                     self.move_queue.put((2, random_m))
                     break
             break
 
         lock.release()
 
+        # 根据队列等级设置
         rank,value = self.move_queue.get()
         self._set_piece(value)
         # print("rank and value is ", rank, value)
