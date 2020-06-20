@@ -7,8 +7,9 @@ from .core.dots_and_boxes import *
 from .core.player import *
 from .main_window import *
 
-# from .core.AIPlayer.PLF_AI import PLFAI
+from .core.AIPlayer.PLF_AI import PLFAI
 from .core.AIPlayer.random_AI import RandomAI
+from .core.AIPlayer.algorithm import MCTS
 
 
 class MainWindowController(QWidget):
@@ -139,7 +140,9 @@ class MainWindowController(QWidget):
         if (not ok):
             return
         try:
-            self._dots_and_boxes.blue_player = RandomAI(Color.blue, blue_player_name, self._dots_and_boxes)
+            #self._dots_and_boxes.blue_player = RandomAI(Color.blue, blue_player_name, self._dots_and_boxes)
+            # self._dots_and_boxes.blue_player = PLFAI(Color.blue, blue_player_name, self._dots_and_boxes)
+            self._dots_and_boxes.blue_player = MCTS(Color.blue, blue_player_name, self._dots_and_boxes)
             # self._dots_and_boxes.blue_player = HumanPlayer(Color.blue, blue_player_name, self._dots_and_boxes)
 
         except DBError as e:

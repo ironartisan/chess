@@ -5,6 +5,10 @@ from .model import *
 
 
 class Game:
+    """
+    h:横向
+    v:纵向
+    """
     def __init__(self, red_player, blue_player):
         if (not (red_player.color == Color.red and blue_player.color == Color.blue)):
             raise GameError("Invalid players", red_player, blue_player)
@@ -61,8 +65,9 @@ class Game:
 
         if (piece.color != self.current_player_color):
             raise MoveError("Player color is wrong")
-
-        self._board.set_piece(piece)
+        # self._board.set_piece(piece)
+        if self._board.get_repeat(piece):
+            self._board.set_piece(piece)
 
         x = piece.coordinate[0]
         y = piece.coordinate[1]

@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowTitle("bistu-dots-and-boxes")
+        MainWindow.setWindowTitle("北信科点格棋")
         if (sys.platform == "linux"):
             MainWindow.resize(727, 548)
         else:

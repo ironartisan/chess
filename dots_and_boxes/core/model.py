@@ -87,6 +87,14 @@ class Board:
     def pieces(self):
         return copy.deepcopy(self._pieces)
 
+    def get_repeat(self, piece):
+        x = piece.coordinate[0]
+        y = piece.coordinate[1]
+        if (self._pieces[x][y] != 0):  # 如果已有棋子返回False
+            return False
+        return True
+
+
     def set_piece(self, piece):
         x = piece.coordinate[0]
         y = piece.coordinate[1]
@@ -97,6 +105,12 @@ class Board:
         self._pieces[x][y] = piece
 
     def set_box(self, coordinate, box):  # box:(color, score)
+        """
+        如果格子未占领，则将对应位置置为0.
+        :param coordinate:
+        :param box:
+        :return:
+        """
         x = coordinate[0]
         y = coordinate[1]
 

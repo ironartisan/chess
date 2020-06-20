@@ -139,6 +139,16 @@ class DotsAndBoxes:
 
         self.move(Piece(color, user_coordinate))
 
+    def get_user_coordinate(self, input_str):
+        """
+        获取坐标
+        :param input_str:
+        :return:
+        """
+        (color, user_coordinate) = self._str_to_coordinate(input_str)
+
+
+
     def _str_to_coordinate(self, input_str):
         color = x = y = type = None
         try:
